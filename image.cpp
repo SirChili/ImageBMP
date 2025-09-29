@@ -47,6 +47,10 @@ void image::Export(const char* path) const
 		return;
 	}
 
-	unsigned char bmpPad[3] = {0,0,0};
+	unsigned char bmpPad[3] = { 0,0,0 };
 	const int paddingAmount = ((4 - (m_width * 3) % 4) % 4);
+
+	const int fileHeaderSize = 14;
+	const int informationHeaderSize = 40;
+	const int fileSize = fileHeaderSize + informationHeaderSize + m_width * m_height * 3 + paddingAmount * m_height;
 }
