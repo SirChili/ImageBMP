@@ -19,7 +19,7 @@ public:
 	image(int width, int height);
 	~image();
 
-	Color GetColor(int,int) const;
+	Color GetColor(int, int) const;
 	void SetColor(const Color& color, int x, int y);
 
 	void Export(const char* path) const;
@@ -30,4 +30,5 @@ private:
 	vector<Color> m_colors;
 
 };
+
 
