@@ -32,9 +32,9 @@ Color image::GetColor(int x, int y) const
 
 void image::SetColor(const Color& color, int x, int y)
 {
-	m_colors[y * m_width + x].r + color.r;
-	m_colors[y * m_width + x].r + color.g;
-	m_colors[y * m_width + x].r + color.b;
+	m_colors[y * m_width + x].r = color.r; 
+	m_colors[y * m_width + x].g = color.g; 
+	m_colors[y * m_width + x].g = color.b; 
 }
 
 void image::Export(const char* path) const
@@ -53,9 +53,9 @@ void image::Export(const char* path) const
 	const int fileHeaderSize = 14;
 	const int informationHeaderSize = 40;
 	const int fileSize = fileHeaderSize + informationHeaderSize + m_width * m_height * 3 + paddingAmount * m_height;
-	
+
 	unsigned char fileHeader[fileHeaderSize];
-	
+
 	//File Type
 	fileHeader[0] = 'B';
 	fileHeader[1] = 'M';
@@ -75,7 +75,7 @@ void image::Export(const char* path) const
 	fileHeader[11] = 0;
 	fileHeader[12] = 0;
 	fileHeader[13] = 0;
-	
+
 	unsigned char informationHeader[informationHeaderSize];
 
 	//Header Size
@@ -89,10 +89,10 @@ void image::Export(const char* path) const
 	informationHeader[6] = m_width >> 16;
 	informationHeader[7] = m_width >> 24;
 	//Image height
-	informationHeader[8] = m_width;
-	informationHeader[9] = m_width >> 8;
-	informationHeader[10] = m_width >> 16;
-	informationHeader[11] = m_width >> 24;
+	informationHeader[8] = m_height;
+	informationHeader[9] = m_height >> 8;
+	informationHeader[10] = m_height >> 16;
+	informationHeader[11] = m_height >> 24;
 	//Planes
 	informationHeader[12] = 1;
 	informationHeader[13] = 0;
@@ -138,7 +138,7 @@ void image::Export(const char* path) const
 			unsigned char r = static_cast<unsigned char>(GetColor(x, y).r * 255.0f);
 			unsigned char g = static_cast<unsigned char>(GetColor(x, y).g * 255.0f);
 			unsigned char b = static_cast<unsigned char>(GetColor(x, y).b * 255.0f);
-		
+
 			unsigned char color[] = { b,g,r };
 
 			f.write(reinterpret_cast<char*>(color), 3);
